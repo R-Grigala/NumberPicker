@@ -2,31 +2,8 @@ const wheel = document.getElementById("wheel");
 const spinBtn = document.getElementById("spin-btn");
 const finalValue = document.getElementById("final-value");
 var input = document.getElementById('input');
+let myChart; // Store the chart instance for later destruction
 
-input.addEventListener('change', function() {
-    var file = input.files[0];
-    
-    if (file) {
-        readXlsxFile(file).then(function(data) {
-            console.log(data);
-        }).catch(function(error) {
-            console.error("Error reading Excel file:", error);
-        });
-    }
-});
-//Object that stores values of minimum and maximum angle for a value
-const rotationValues = [
-  { minDegree: 0, maxDegree: 30, value: 2 },
-  { minDegree: 31, maxDegree: 90, value: 1 },
-  { minDegree: 91, maxDegree: 150, value: 6 },
-  { minDegree: 151, maxDegree: 210, value: 5 },
-  { minDegree: 211, maxDegree: 270, value: 4 },
-  { minDegree: 271, maxDegree: 330, value: 3 },
-  { minDegree: 331, maxDegree: 360, value: 2 },
-];
-//Size of each piece
-
-const data = [1,1,1,1,1];
 //background color for each piece
 var pieColors = [
   "#8b35bc",
@@ -34,42 +11,113 @@ var pieColors = [
   "#ff0000",
   "#b163da",
 ];
-//Create chart
-let myChart = new Chart(wheel, {
-  //Plugin for displaying text on pie chart
-  plugins: [ChartDataLabels],
-  //Chart Type Pie
-  type: "pie",
-  data: {
-    //Labels(values which are to be displayed on chart)
-    labels: [14,154],
-    //Settings for dataset/pie
-    datasets: [
-      {
-        backgroundColor: pieColors,
-        data: data,
-      },
-    ],
-  },
-  options: {
-    //Responsive chart
-    responsive: true,
-    animation: { duration: 1 },
-    plugins: {
-      //hide tooltip and legend
-      tooltip: false,
-      legend: {
-        display: false,
-      },
-      //display labels inside pie chart
-      datalabels: {
-        color: "#ffffff",
-        formatter: (_, context) => context.chart.data.labels[context.dataIndex],
-        font: { size: 24 },
+
+const data = [1,1,1,1,1,1,1,1,1,1];
+const Cdata = [2723,2213,2231,3231,6533,8765,8987,4353,5647,9665];
+createChart(Cdata, data, pieColors);
+
+input.addEventListener('change', function() {
+    var file = input.files[0];
+
+    if (file) {
+        readXlsxFile(file)
+            .then(function(data) {
+                // Assuming you want to store the first column (column index 0)
+                let columnData = [];
+                // Loop through the rows and collect data from the first column
+                data.forEach(function(row) {
+                    if (row && row.length > 0) {
+                      columnData.push(row[0]);
+                    }
+                });
+
+                const generatedRotateValues = rotationValues(columnData);
+                const dataPieceSize = dataPiece(columnData);
+                createChart(columnData, dataPieceSize, pieColors);
+            })
+            .catch(function(error) {
+                console.error("Error reading Excel file:", error);
+            });
+    }
+});
+
+const rotationValues = function(columnData) {
+  let columnDataLength = columnData.length
+  let circleDeg = 360 / columnDataLength;
+
+  const rotateValues = [];
+  let currentMinDegree = 0;
+
+  for (let i = 0; i < columnDataLength; i++) {
+      const currentMaxDegree = currentMinDegree + circleDeg;
+
+      rotateValues.push({
+          minDegree: currentMinDegree,
+          maxDegree: currentMaxDegree,
+          value: columnData[i], // You can adjust this as needed
+      });
+
+      currentMinDegree = currentMaxDegree;
+  }
+
+  return rotateValues;
+};
+
+//Size of each piece
+const  dataPiece = (columnData) => {
+  const dataPiece = [];
+  for (let i = 0; i < columnData.length; i++) {
+    dataPiece[i] = 1
+  }
+
+  return dataPiece;
+};
+
+
+function createChart(columnData, dataPieceSize, pieColors) {
+  // Destroy the previous chart (if it exists)
+  if (myChart) {
+    myChart.destroy();
+  }
+
+  // Create a new chart
+  myChart = new Chart(wheel, {
+    //Plugin for displaying text on pie chart
+    plugins: [ChartDataLabels],
+    //Chart Type Pie
+    type: "pie",
+    data: {
+      //Labels(values which are to be displayed on chart)
+      labels: columnData,
+      //Settings for dataset/pie
+      datasets: [
+        {
+          backgroundColor: pieColors,
+          data: dataPieceSize,
+        },
+      ],
+    },
+    options: {
+      //Responsive chart
+      responsive: true,
+      animation: { duration: 1 },
+      plugins: {
+        //hide tooltip and legend
+        tooltip: false,
+        legend: {
+          display: false,
+        },
+        //display labels inside pie chart
+        datalabels: {
+          color: "#ffffff",
+          formatter: (_, context) => context.chart.data.labels[context.dataIndex],
+          font: { size: 20 }    
+        },
       },
     },
-  },
-});
+  });  
+}
+
 //display value based on the randomAngle
 const valueGenerator = (angleValue) => {
   for (let i of rotationValues) {
@@ -82,7 +130,7 @@ const valueGenerator = (angleValue) => {
   }
 };
 
-//Spinner count
+// //Spinner count
 let count = 0;
 //100 rotations for animation and last rotation for result
 let resultValue = 501;
