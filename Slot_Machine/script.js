@@ -1,16 +1,20 @@
-const items = [
-      "1️⃣",
-      "2️⃣",
-      "3️⃣",
-      "4️⃣",
-      "5️⃣",
-      "6️⃣",
-      "7️⃣",
-      "8️⃣",
-      "9️⃣",
-      "0️⃣"
-    ];
-    document.querySelector(".info").textContent = items.join(" ");
+const list = [4544,7878];
+
+const items = [{
+      0:"0️⃣",
+      1:"1️⃣",
+      2:"2️⃣",
+      3:"3️⃣",
+      4:"4️⃣",
+      5:"5️⃣",
+      6:"6️⃣",
+      7:"7️⃣",
+      8:"8️⃣",
+      9:"9️⃣"
+}];
+
+    const joinedText = Object.values(items[0]).join(" ");
+    document.querySelector(".info").textContent = joinedText;
   
     const doors = document.querySelectorAll(".door");
     document.querySelector("#spinner").addEventListener("click", spin);
@@ -41,7 +45,7 @@ const items = [
         if (!firstInit) {
           const arr = [];
           for (let n = 0; n < (groups > 0 ? groups : 1); n++) {
-            arr.push(...items);
+            arr.push(...Object.values(items[0]));
           }
           pool.push(...shuffle(arr));
   
@@ -85,11 +89,19 @@ const items = [
     }
   
     function shuffle([...arr]) {
-      let m = arr.length;
-      while (m) {
-        const i = Math.floor(Math.random() * m--);
+      let num = 4656;
+      let numArray = num.toString().split('').map(Number);
+      let numIndex = 0; // Initialize an index for the digits of num
+      for (let m = arr.length; m > 0; m--) {
+        // Generate i using the current digit of num
+        const digit = numArray[numIndex];
+        const i = digit % m;
+        numIndex = (numIndex + 1) % numArray.length; // Cycle through digits
+        m--;
         [arr[m], arr[i]] = [arr[i], arr[m]];
+        
       }
+      console.log("shuffle" + arr);
       return arr;
     }
   
