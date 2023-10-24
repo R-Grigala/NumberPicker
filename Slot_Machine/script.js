@@ -1,5 +1,3 @@
-const list = [4544,7878];
-
 const items = [{
       0:"0️⃣",
       1:"1️⃣",
@@ -19,7 +17,39 @@ const items = [{
     const doors = document.querySelectorAll(".door");
     document.querySelector("#spinner").addEventListener("click", spin);
     document.querySelector("#reseter").addEventListener("click", init);
-  
+
+    var input = document.getElementById('uploadBtn');
+    let columnData = []; // Declare the variable in the outermost scope
+    
+    input.addEventListener('change', function() {
+      var file = input.files[0];
+    
+      if (file) {
+        readXlsxFile(file)
+          .then(function(data) {
+            // Clear the existing data
+            columnData = []; // Assign the value to the outer variable
+            // Loop through the rows and collect data from the first column
+            data.forEach(function(row) {
+              if (row && row.length > 0) {
+                columnData.push(row[0]);
+              }
+            });
+            // Now columnData is updated with the data
+            // You can use it in other functions or access it globally
+          })
+          .catch(function(error) {
+            console.error("Error reading Excel file:", error);
+          });
+      }
+    });
+    
+    // Now you can use columnData in other functions or globally
+    function anotherFunction() {
+      const randomIndex = Math.floor(Math.random() * columnData.length);
+      return columnData[randomIndex];
+    }
+
     async function spin() {
       init(false, 1, 2);
       for (const door of doors) {
@@ -31,7 +61,11 @@ const items = [{
     }
   
     function init(firstInit = true, groups = 1, duration = 1) {
-      for (const door of doors) {
+      const randomValue = anotherFunction();
+      let numArray = randomValue.toString().split('').map(Number);
+      for (let j = 0; j < doors.length; j++) {
+        const door = doors[j];
+        console.log(door)
         if (firstInit) {
           door.dataset.spinned = "0";
         } else if (door.dataset.spinned === "1") {
@@ -47,8 +81,9 @@ const items = [{
           for (let n = 0; n < (groups > 0 ? groups : 1); n++) {
             arr.push(...Object.values(items[0]));
           }
-          pool.push(...shuffle(arr));
-  
+
+          pool.push(...shuffle(arr, numArray[j])); // Call the shuffle function with the current digit
+          
           boxesClone.addEventListener(
             "transitionstart",
             function () {
@@ -88,20 +123,10 @@ const items = [{
       }
     }
   
-    function shuffle([...arr]) {
-      let num = 4656;
-      let numArray = num.toString().split('').map(Number);
-      let numIndex = 0; // Initialize an index for the digits of num
-      for (let m = arr.length; m > 0; m--) {
-        // Generate i using the current digit of num
-        const digit = numArray[numIndex];
-        const i = digit % m;
-        numIndex = (numIndex + 1) % numArray.length; // Cycle through digits
-        m--;
-        [arr[m], arr[i]] = [arr[i], arr[m]];
-        
-      }
-      console.log("shuffle" + arr);
+    function shuffle([...arr], numArray) {
+
+      arr[arr.length - 1]= arr[numArray]
+      
       return arr;
     }
   
