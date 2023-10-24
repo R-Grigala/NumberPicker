@@ -19,7 +19,7 @@ const items = [{
     document.querySelector("#reseter").addEventListener("click", init);
 
     var input = document.getElementById('uploadBtn');
-    let columnData = []; // Declare the variable in the outermost scope
+    let columnData = [1111]; // Declare the variable in the outermost scope
     
     input.addEventListener('change', function() {
       var file = input.files[0];
