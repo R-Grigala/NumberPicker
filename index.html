@@ -15,22 +15,54 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <input type="file" id="input">
-    <table id="tbl-data"></table>
-    <div class="wrapper">
-      <div class="container">
-        <canvas id="wheel"></canvas>
-        <button id="spin-btn">Spin</button>
-        <img src="Spinner_Arrow.png" alt="spinner-arrow" />
+
+    <div id="app">
+        <div class="imgDiv">
+          <img src="Belagio_logo.png" alt="Background Image" style="width: 30vh; height: 30vh;">
+        </div>
+
+        <div class="doors">
+          <div class="door">
+            <div class="boxes">
+            </div>
+          </div>
+      
+          <div class="door">
+            <div class="boxes">
+            </div>
+          </div>
+      
+          <div class="door">
+            <div class="boxes">
+            </div>
+          </div>
+
+          <div class="door">
+            <div class="boxes">
+            </div>
+          </div>
+
+          <div class="door">
+            <div class="boxes">
+            </div>
+          </div>
+        </div>
+      
+        <div class="outer circle">
+          <button id="spinner">Spin</button>  
+          <span></span>   
+          <span></span>         
+        </div>
+        <div class="infoSpinner">
+          <button id="reseter">R</button>
+          <p class="info"></p>
+          <input type="file" id="uploadBtn" accept=".xlsx">
+          <label for="uploadBtn"><i class="fa-solid fa-upload"></i>U</label>
+        </div>
+        <div>
+
+        </div>
       </div>
-      <div id="final-value">
-        <p>Click On The Spin Button To Start</p>
-      </div>
-    </div>
-    <!-- Chart JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
-    <!-- Chart JS Plugin for displaying text over chart -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.1.0/chartjs-plugin-datalabels.min.js"></script>
     <!-- Script -->
     <script src="script.js"></script>
   </body>

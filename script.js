@@ -1,165 +1,134 @@
-const wheel = document.getElementById("wheel");
-const spinBtn = document.getElementById("spin-btn");
-const finalValue = document.getElementById("final-value");
-var input = document.getElementById('input');
-let myChart; // Store the chart instance for later destruction
+const items = [{
+      0:"0️⃣",
+      1:"1️⃣",
+      2:"2️⃣",
+      3:"3️⃣",
+      4:"4️⃣",
+      5:"5️⃣",
+      6:"6️⃣",
+      7:"7️⃣",
+      8:"8️⃣",
+      9:"9️⃣"
+}];
 
-//background color for each piece
-var pieColors = [
-  "#8b35bc",
-  "#0000FF",
-  "#ff0000",
-  "#b163da",
-];
+    const joinedText = Object.values(items[0]).join(" ");
+    document.querySelector(".info").textContent = joinedText;
+  
+    const doors = document.querySelectorAll(".door");
+    document.querySelector("#spinner").addEventListener("click", spin);
+    document.querySelector("#reseter").addEventListener("click", init);
 
-const data = [1,1,1,1,1,1,1,1,1,1];
-const Cdata = [2723,2213,2231,3231,6533,8765,8987,4353,5647,9665];
-createChart(Cdata, data, pieColors);
-
-input.addEventListener('change', function() {
-    var file = input.files[0];
-
-    if (file) {
+    var input = document.getElementById('uploadBtn');
+    let columnData = [1111]; // Declare the variable in the outermost scope
+    
+    input.addEventListener('change', function() {
+      var file = input.files[0];
+    
+      if (file) {
         readXlsxFile(file)
-            .then(function(data) {
-                // Assuming you want to store the first column (column index 0)
-                let columnData = [];
-                // Loop through the rows and collect data from the first column
-                data.forEach(function(row) {
-                    if (row && row.length > 0) {
-                      columnData.push(row[0]);
-                    }
-                });
-
-                const generatedRotateValues = rotationValues(columnData);
-                const dataPieceSize = dataPiece(columnData);
-                createChart(columnData, dataPieceSize, pieColors);
-            })
-            .catch(function(error) {
-                console.error("Error reading Excel file:", error);
+          .then(function(data) {
+            // Clear the existing data
+            columnData = []; // Assign the value to the outer variable
+            // Loop through the rows and collect data from the first column
+            data.forEach(function(row) {
+              if (row && row.length > 0) {
+                columnData.push(row[0]);
+              }
             });
+            // Now columnData is updated with the data
+            // You can use it in other functions or access it globally
+          })
+          .catch(function(error) {
+            console.error("Error reading Excel file:", error);
+          });
+      }
+    });
+    
+    // Now you can use columnData in other functions or globally
+    function anotherFunction() {
+      const randomIndex = Math.floor(Math.random() * columnData.length);
+      return columnData[randomIndex];
     }
-});
 
-const rotationValues = function(columnData) {
-  let columnDataLength = columnData.length
-  let circleDeg = 360 / columnDataLength;
-
-  const rotateValues = [];
-  let currentMinDegree = 0;
-
-  for (let i = 0; i < columnDataLength; i++) {
-      const currentMaxDegree = currentMinDegree + circleDeg;
-
-      rotateValues.push({
-          minDegree: currentMinDegree,
-          maxDegree: currentMaxDegree,
-          value: columnData[i], // You can adjust this as needed
-      });
-
-      currentMinDegree = currentMaxDegree;
-  }
-
-  return rotateValues;
-};
-
-//Size of each piece
-const  dataPiece = (columnData) => {
-  const dataPiece = [];
-  for (let i = 0; i < columnData.length; i++) {
-    dataPiece[i] = 1
-  }
-
-  return dataPiece;
-};
-
-
-function createChart(columnData, dataPieceSize, pieColors) {
-  // Destroy the previous chart (if it exists)
-  if (myChart) {
-    myChart.destroy();
-  }
-
-  // Create a new chart
-  myChart = new Chart(wheel, {
-    //Plugin for displaying text on pie chart
-    plugins: [ChartDataLabels],
-    //Chart Type Pie
-    type: "pie",
-    data: {
-      //Labels(values which are to be displayed on chart)
-      labels: columnData,
-      //Settings for dataset/pie
-      datasets: [
-        {
-          backgroundColor: pieColors,
-          data: dataPieceSize,
-        },
-      ],
-    },
-    options: {
-      //Responsive chart
-      responsive: true,
-      animation: { duration: 1 },
-      plugins: {
-        //hide tooltip and legend
-        tooltip: false,
-        legend: {
-          display: false,
-        },
-        //display labels inside pie chart
-        datalabels: {
-          color: "#ffffff",
-          formatter: (_, context) => context.chart.data.labels[context.dataIndex],
-          font: { size: 20 }    
-        },
-      },
-    },
-  });  
-}
-
-//display value based on the randomAngle
-const valueGenerator = (angleValue) => {
-  for (let i of rotationValues) {
-    //if the angleValue is between min and max then display it
-    if (angleValue >= i.minDegree && angleValue <= i.maxDegree) {
-      finalValue.innerHTML = `<p>Value: ${i.value}</p>`;
-      spinBtn.disabled = false;
-      break;
+    async function spin() {
+      init(false, 1, 2);
+      for (const door of doors) {
+        const boxes = door.querySelector(".boxes");
+        const duration = parseInt(boxes.style.transitionDuration);
+        boxes.style.transform = "translateY(0)";
+        await new Promise((resolve) => setTimeout(resolve, duration * 1000));
+      }
     }
-  }
-};
+  
+    function init(firstInit = true, groups = 1, duration = 1) {
+      const randomValue = anotherFunction();
+      let numArray = randomValue.toString().split('').map(Number);
+      for (let j = 0; j < doors.length; j++) {
+        const door = doors[j];
+        console.log(door)
+        if (firstInit) {
+          door.dataset.spinned = "0";
+        } else if (door.dataset.spinned === "1") {
+          return;
+        }
+  
+        const boxes = door.querySelector(".boxes");
+        const boxesClone = boxes.cloneNode(false);
+  
+        const pool = ["0️⃣"];
+        if (!firstInit) {
+          const arr = [];
+          for (let n = 0; n < (groups > 0 ? groups : 1); n++) {
+            arr.push(...Object.values(items[0]));
+          }
 
-// //Spinner count
-let count = 0;
-//100 rotations for animation and last rotation for result
-let resultValue = 501;
-//Start spinning
-spinBtn.addEventListener("click", () => {
-  spinBtn.disabled = true;
-  //Empty final value
-  finalValue.innerHTML = `<p>Good Luck!</p>`;
-  //Generate random degrees to stop at
-  let randomDegree = Math.floor(Math.random() * (355 - 0 + 1) + 0);
-  //Interval for rotation animation
-  let rotationInterval = window.setInterval(() => {
-    //Set rotation for piechart
-    /*
-    Initially to make the piechart rotate faster we set resultValue to 101 so it rotates 101 degrees at a time and this reduces by 1 with every count. Eventually on last rotation we rotate by 1 degree at a time.
-    */
-    myChart.options.rotation = myChart.options.rotation + resultValue;
-    //Update chart with new value;
-    myChart.update();
-    //If rotation>360 reset it back to 0
-    if (myChart.options.rotation >= 360) {
-      count += 1;
-      resultValue -= 5;
-      myChart.options.rotation = 0;
-    } else if (count > 15 && myChart.options.rotation == randomDegree) {
-      valueGenerator(randomDegree);
-      clearInterval(rotationInterval);
-      count = 0;
-      resultValue = 101;
+          pool.push(...shuffle(arr, numArray[j])); // Call the shuffle function with the current digit
+          
+          boxesClone.addEventListener(
+            "transitionstart",
+            function () {
+              door.dataset.spinned = "1";
+              this.querySelectorAll(".box").forEach((box) => {
+                box.style.filter = "blur(1px)";
+              });
+            },
+            { once: true }
+          );
+  
+          boxesClone.addEventListener(
+            "transitionend",
+            function () {
+              this.querySelectorAll(".box").forEach((box, index) => {
+                box.style.filter = "blur(0)";
+                if (index > 0) this.removeChild(box);
+              });
+            },
+            { once: true }
+          );
+        }
+  
+        for (let i = pool.length - 1; i >= 0; i--) {
+          const box = document.createElement("div");
+          box.classList.add("box");
+          box.style.width = door.clientWidth + "px";
+          box.style.height = door.clientHeight + "px";
+          box.textContent = pool[i];
+          boxesClone.appendChild(box);
+        }
+        boxesClone.style.transitionDuration = `${duration > 0 ? duration : 1}s`;
+        boxesClone.style.transform = `translateY(-${
+          door.clientHeight * (pool.length - 1)
+        }px)`;
+        door.replaceChild(boxesClone, boxes);
+      }
     }
-  }, 10);
-});
+  
+    function shuffle([...arr], numArray) {
+
+      arr[arr.length - 1]= arr[numArray]
+      
+      return arr;
+    }
+  
+    init();
+  
