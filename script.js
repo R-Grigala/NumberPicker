@@ -19,7 +19,7 @@ const items = [{
     document.querySelector("#reseter").addEventListener("click", init);
 
     var input = document.getElementById('uploadBtn');
-    let columnData = [1111]; // Declare the variable in the outermost scope
+    let columnData = ["00000"]; // Declare the variable in the outermost scope
     
     input.addEventListener('change', function() {
       var file = input.files[0];
@@ -65,7 +65,7 @@ const items = [{
       let numArray = randomValue.toString().split('').map(Number);
       for (let j = 0; j < doors.length; j++) {
         const door = doors[j];
-        console.log(door)
+        // console.log(door)
         if (firstInit) {
           door.dataset.spinned = "0";
         } else if (door.dataset.spinned === "1") {
