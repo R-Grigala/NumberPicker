@@ -135,30 +135,25 @@ input[type="file"]{
   justify-content: center;
 }
 label {
-
-  text-transform: uppercase;
-  color: #fff;
-  background: #c0392b;
-  text-align: center;
-  font-size: 12px;
-  letter-spacing: 12.5px;
-  user-select: none;
-  box-shadow: 5px 15px 25px rgba(0, 0, 0, 35);
-  border-radius: 15px;
   cursor: pointer;
-  
-}
-
-label i{
-  font-size: 20px;
-  margin-right: 10px;
+  font-size: 1rem;
 }
 
 label:active{
-  transform: scale(0.9);
+  transform: scale(0.7);
 }
 
-#reseter {
+.resetBtn {
+  cursor: pointer;
+  margin-right: 1rem;
+  font-size: 1rem;
+}
+
+.resetBtn:active{
+  transform: scale(0.7);
+}
+
+/* #reseter {
   display: flex;
   text-align: center;
   font-size: 17px;
@@ -173,4 +168,4 @@ label:active{
   background: #c0392b;
   text-transform: uppercase;
   border-radius: 10px;
-}
+} */
