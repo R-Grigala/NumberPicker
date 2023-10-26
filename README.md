@@ -1,2 +1,2 @@
-# SpinnerWeel
-Spinner Weel Game in Javascript
+# NumberPicker
+Number Picker Game in Javascript
