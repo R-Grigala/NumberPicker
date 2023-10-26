@@ -123,6 +123,10 @@ label:active {
   width: 1.5rem;
 }
 
+label img{
+  width: 1.5rem;
+}
+
 .resetBtn:active {
   transform: scale(0.7);
 }
