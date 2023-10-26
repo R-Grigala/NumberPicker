@@ -117,7 +117,6 @@ function init(firstInit = true, groups = 1, duration = 1) {
     boxesClone.style.transitionDuration = `${duration > 0 ? duration : 1}s`;
     
     boxesClone.style.transform = `translateY(-${door.clientHeight * (pool.length - 1)*(pool.length - 9.5)}px)`;
-    console.log(door.clientHeight * (pool.length - 1)*(pool.length - 9.5))
     door.replaceChild(boxesClone, boxes);
   }
 }
