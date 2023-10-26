@@ -45,18 +45,12 @@ body {
 .door {
   background: #494a94;
   box-shadow: 0 0 6px 5px rgba(0, 0, 0, 0.4) inset;
-  width: 11.5rem;
+  width: 10.5rem;
   height: 10.5rem;
   overflow: hidden;
   border-radius: 12px;
   margin: 1px;
 }
-
-.box {
-  display: contents;
-  font-size: 9rem;
-}
-
 
 #spinner {
   cursor: pointer;
@@ -64,46 +58,34 @@ body {
   text-transform: uppercase;
 }
 
-.outer{
+.circle{
   position: relative;
   background: linear-gradient(#14ffe9, #ffeb3b, #ff00e0);
   margin-top: 5rem;
-}
-.circle{
+
   height: 11rem;
   width: 11rem;
   border-radius: 50%;
-}
-.outer button, .outer span{
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-.outer button{
-  background: #6d9fa2;
-  color: #ffffff;
-  outline: none;
-  border: none;
-  font-size: 20px;
-  z-index: 9;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  cursor: pointer;
-  font-family: initial;
-  font-weight: bold;
 }
 .circle button{
   height: 9.5rem;
   width: 9.5rem;
   border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #6d9fa2;
+  color: #ffffff;
+  border: none;
+  z-index: 9;
+  letter-spacing: 1px;
+  font-family: initial;
+  font-weight: bold;
 }
 
-.outer:hover span:nth-child(2){
-  filter: blur(14px);
-}
-.outer:hover{
-  background: linear-gradient(#14ffe9, #ffeb3b, #ff00e0);
+.circle:active {
+  transform: scale(0.9);
 }
 
 .infoSpinner {
