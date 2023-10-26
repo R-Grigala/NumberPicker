@@ -45,18 +45,15 @@ body {
 .door {
   background: #494a94;
   box-shadow: 0 0 6px 5px rgba(0, 0, 0, 0.4) inset;
-  width: 180px;
-  height: 165px;
+  width: 11.5rem;
+  height: 10.5rem;
   overflow: hidden;
-  border-radius: 6px;
+  border-radius: 12px;
   margin: 1px;
 }
 
 .box {
-  display: flex;
-  justify-items: center;
-  align-items: center;
-  text-align: center;
+  display: contents;
   font-size: 9rem;
 }
 
@@ -69,13 +66,12 @@ body {
 
 .outer{
   position: relative;
-  margin: 0 50px;
   background: linear-gradient(#14ffe9, #ffeb3b, #ff00e0);
   margin-top: 5rem;
 }
 .circle{
-  height: 200px;
-  width: 200px;
+  height: 11rem;
+  width: 11rem;
   border-radius: 50%;
 }
 .outer button, .outer span{
@@ -98,16 +94,8 @@ body {
   font-weight: bold;
 }
 .circle button{
-  height: 170px;
-  width: 170px;
-  border-radius: 50%;
-}
-.outer span{
-  height: 190px;
-  width: 100%;
-  background: inherit;
-}
-.circle span{
+  height: 9.5rem;
+  width: 9.5rem;
   border-radius: 50%;
 }
 
@@ -146,11 +134,11 @@ label:active {
 .resetBtn {
   cursor: pointer;
   margin-right: 1rem;
-  font-size: 1.5rem;
+  width: 1.5rem;
 }
 
-.info {
-  font-size: 1.5rem;
+.info img{
+  width: 1.5rem;
 }
 
 .resetBtn:active {
