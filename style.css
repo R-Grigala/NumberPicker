@@ -136,36 +136,57 @@ input[type="file"]{
 }
 label {
   cursor: pointer;
-  font-size: 1rem;
+  font-size: 1.5rem;
 }
 
-label:active{
+label:active {
   transform: scale(0.7);
 }
 
 .resetBtn {
   cursor: pointer;
   margin-right: 1rem;
-  font-size: 1rem;
+  font-size: 1.5rem;
 }
 
-.resetBtn:active{
+.info {
+  font-size: 1.5rem;
+}
+
+.resetBtn:active {
   transform: scale(0.7);
 }
 
-/* #reseter {
-  display: flex;
-  text-align: center;
-  font-size: 17px;
-  letter-spacing: 1.5px;
-  user-select: none;
-  cursor: pointer;
-  box-shadow: 5px 15px 25px rgba(0, 0, 0, 35);
-  margin-right: 30px;
+.produce {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  padding: 10px; /* Add your preferred padding */
+  border-radius: 5px; /* Add border radius for styling */
 }
-.resetBtn{
-  color: #fff;
-  background: #c0392b;
-  text-transform: uppercase;
-  border-radius: 10px;
-} */
+
+.produceCon {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+.produceCon p {
+  padding: 0;
+  margin: 0;
+  color: #ffffff;
+  font-size: small;
+}
+
+
+.produceCon img {
+  width: 3rem; /* Set the width of the image */
+  height: 3rem; /* Set the height of the image */
+  
+}
+.produceCon h3 {
+  color: #ffffff;
+  font-size: medium;
+  margin-right: 10px; /* Add some spacing between the image and text */
+}
