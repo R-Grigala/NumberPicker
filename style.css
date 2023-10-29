@@ -52,39 +52,12 @@ body {
   margin: 1px;
 }
 
-#spinner {
-  cursor: pointer;
-  font-size: 3rem;
-  text-transform: uppercase;
+.spin img {
+  margin-top: 8rem;
+  width: 8rem;
 }
 
-.circle{
-  position: relative;
-  background: linear-gradient(#14ffe9, #ffeb3b, #ff00e0);
-  margin-top: 5rem;
-
-  height: 11rem;
-  width: 11rem;
-  border-radius: 50%;
-}
-.circle button{
-  height: 9.5rem;
-  width: 9.5rem;
-  border-radius: 50%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: #6d9fa2;
-  color: #ffffff;
-  border: none;
-  z-index: 9;
-  letter-spacing: 1px;
-  font-family: initial;
-  font-weight: bold;
-}
-
-.circle:active {
+.spin:active {
   transform: scale(0.9);
 }
 
@@ -116,10 +89,6 @@ label:active {
 .resetBtn {
   cursor: pointer;
   margin-right: 1rem;
-  width: 1.5rem;
-}
-
-.info img{
   width: 1.5rem;
 }
 

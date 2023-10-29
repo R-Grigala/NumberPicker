@@ -11,9 +11,6 @@ const items = [{
   9:"./assets/images/emoji_9.png"
 }];
 
-const joinedImages = Object.values(items[0]).map(url => `<img src="${url}" />`).join(" ");
-document.querySelector(".info").innerHTML = joinedImages;
-
 const doors = document.querySelectorAll(".door");
 document.querySelector("#spinner").addEventListener("click", spin);
 document.querySelector("#reseter").addEventListener("click", init);
