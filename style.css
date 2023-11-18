@@ -133,3 +133,21 @@ label img{
   font-size: medium;
   margin-right: 10px; /* Add some spacing between the image and text */
 }
+
+table, th, td {
+  margin: 2rem;
+  border: 2px solid rgb(255, 255, 255);
+  color: #ffffff;
+}
+img {
+  width: 2rem;
+}
+.tableFunc {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.tables {
+  width: 30rem;
+}

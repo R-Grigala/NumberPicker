@@ -42,7 +42,7 @@ input.addEventListener('change', function() {
 });
 
 // Now you can use columnData in other functions or globally
-function anotherFunction() {
+function randomFunction() {
   const randomIndex = Math.floor(Math.random() * columnData.length);
   return columnData[randomIndex];
 }
@@ -57,8 +57,12 @@ async function spin() {
   }
 }
 
+function tableFunc(){
+  
+}
+
 function init(firstInit = true, groups = 1, duration = 1) {
-  const randomValue = anotherFunction();
+  const randomValue = randomFunction();
   let numArray = randomValue.toString().split('').map(Number);
 
   for (let j = 0; j < doors.length; j++) {
@@ -80,6 +84,7 @@ function init(firstInit = true, groups = 1, duration = 1) {
       }
 
       pool.push(...shuffle(arr, numArray[j])); // Call the shuffle function with the current digit
+      console.log(numArray);
       boxesClone.addEventListener(
         "transitionstart",
         function () {
@@ -119,6 +124,7 @@ function init(firstInit = true, groups = 1, duration = 1) {
 }
 
 function shuffle([...arr], numArray) {
+  // console.log(numArray)
   if(arr[numArray] === undefined){
     arr[arr.length - 1]= './assets/images/emoji_empty.png'
   } else {
