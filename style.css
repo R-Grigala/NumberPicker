@@ -151,3 +151,11 @@ img {
 .tables {
   width: 30rem;
 }
+
+.reset_table {
+  padding-right: 9rem;
+  align-items: flex-start;
+  justify-items: center;
+  display: flex;
+  justify-content: flex-end;
+}

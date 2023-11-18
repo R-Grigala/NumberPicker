@@ -11,6 +11,10 @@ const items = [{
   9:"./assets/images/emoji_9.png"
 }];
 
+var counter = 0;
+var count = 1;
+var numbersArray = [];
+
 const doors = document.querySelectorAll(".door");
 document.querySelector("#spinner").addEventListener("click", spin);
 document.querySelector("#reseter").addEventListener("click", init);
@@ -57,8 +61,23 @@ async function spin() {
   }
 }
 
-function tableFunc(){
+function tableFunc(arrNum){
   
+  // Assuming you have an array of numbers
+  
+  if(count%5==0){
+    numbersArray[counter] = arrNum;
+    counter +=1;
+  }
+  console.log(count);
+  
+  count += 1;
+  console.log(count);
+  // Loop through the array and populate the table cells
+  for (var i = 0; i < numbersArray.length; i++) {
+    var personCell = document.getElementById("dice_" + (i + 1));
+    personCell.textContent = numbersArray[i];
+  }
 }
 
 function init(firstInit = true, groups = 1, duration = 1) {
@@ -82,9 +101,11 @@ function init(firstInit = true, groups = 1, duration = 1) {
       for (let n = 0; n < (groups > 0 ? groups : 1); n++) {
         arr.push(...Object.values(items[0]));
       }
-
+      if(count<=31){
+        tableFunc(randomValue);
+      }
+      
       pool.push(...shuffle(arr, numArray[j])); // Call the shuffle function with the current digit
-      console.log(numArray);
       boxesClone.addEventListener(
         "transitionstart",
         function () {
