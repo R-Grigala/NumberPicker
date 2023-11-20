@@ -14,6 +14,7 @@ const items = [{
 var counter = 0;
 var count = 1;
 var numbersArray = [];
+const usedIndices = [];
 
 const doors = document.querySelectorAll(".door");
 document.querySelector("#spinner").addEventListener("click", spin);
@@ -47,7 +48,18 @@ input.addEventListener('change', function() {
 
 // Now you can use columnData in other functions or globally
 function randomFunction() {
-  const randomIndex = Math.floor(Math.random() * columnData.length);
+  if (usedIndices.length === columnData.length) {
+    // All indices have been used, reset the usedIndices array
+    usedIndices.length = 0;
+  }
+
+  let randomIndex;
+  do {
+    randomIndex = Math.floor(Math.random() * columnData.length);
+  } while (usedIndices.includes(randomIndex));
+
+  // Mark the index as used
+  usedIndices.push(randomIndex);
   return columnData[randomIndex];
 }
 
@@ -64,7 +76,6 @@ async function spin() {
 function tableFunc(arrNum){
   
   // Assuming you have an array of numbers
-  
   if(count%5==0){
     numbersArray[counter] = arrNum;
     counter +=1;
@@ -101,9 +112,9 @@ function init(firstInit = true, groups = 1, duration = 1) {
       for (let n = 0; n < (groups > 0 ? groups : 1); n++) {
         arr.push(...Object.values(items[0]));
       }
-      if(count<=31){
-        tableFunc(randomValue);
-      }
+      // if(count<=31){
+      //   tableFunc(randomValue);
+      // }
       
       pool.push(...shuffle(arr, numArray[j])); // Call the shuffle function with the current digit
       boxesClone.addEventListener(
