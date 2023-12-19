@@ -60,6 +60,7 @@ function randomFunction() {
 
   // Mark the index as used
   usedIndices.push(randomIndex);
+  console.log(columnData[randomIndex])
   return columnData[randomIndex];
 }
 
