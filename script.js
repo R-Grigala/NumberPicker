@@ -60,12 +60,14 @@ function randomFunction() {
 
   // Mark the index as used
   usedIndices.push(randomIndex);
-  console.log(columnData[randomIndex])
+  // console.log(columnData[randomIndex]);
   return columnData[randomIndex];
 }
 
 async function spin() {
-  init(false, 1, 2);
+  const randomValue = randomFunction();
+  let numArray = randomValue.toString().split('').map(Number);
+  init(false, 1, 2, numArray);
   for (const door of doors) {
     const boxes = door.querySelector(".boxes");
     const duration = parseInt(boxes.style.transitionDuration);
@@ -92,9 +94,7 @@ function tableFunc(arrNum){
   }
 }
 
-function init(firstInit = true, groups = 1, duration = 1) {
-  const randomValue = randomFunction();
-  let numArray = randomValue.toString().split('').map(Number);
+function init(firstInit = true, groups = 1, duration = 1, numArray = []) {
 
   for (let j = 0; j < doors.length; j++) {
     const door = doors[j];
